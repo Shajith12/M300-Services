@@ -218,7 +218,7 @@ Ich habe Client-Installation auf [dieser](https://git-scm.com/downloads) Seite h
 2.  Unter den Menübereichen auf der linken Seite zum Abschnitt *SSH und GPG keys* wechseln
 3.  Auf *New SSH key* klicken
 4.  Im Formular unter *Title* die Bezeichnung MB SSH-Key vergeben
-5.  Den Key von der Datei *C:\Users\silva\.ssh\id_rsa.pub* einfügen und auf *Add SSH key* klicken
+5.  Den Key von der Datei *C:\Users\shajith\.ssh\id_rsa.pub* einfügen und auf *Add SSH key* klicken
 
 *SSH Zugriff auf VM*
 
