@@ -1,10 +1,9 @@
-# M300-Services
-M300 - LB2 Dokumentation Silvan Walz test
+M300 - LB2 Dokumentation Shajith Sridaran
 ===
 Die nachstehende Dokumentation zeigt alle Schritte auf, die ich während der LB2 gemacht habe.
 
 ## Inhaltsverzeichnis
-- [M300 - LB2 Dokumentation Silvan Walz test](#m300---lb2-dokumentation-silvan-walz-test)
+- [M300 - LB2 Dokumentation Shajith Sridaran](#m300---lb2-dokumentation-shajith-sridaran)
   - [Inhaltsverzeichnis](#inhaltsverzeichnis)
 - [K1](#k1)
   - [VirtualBox](#virtualbox)
@@ -181,7 +180,7 @@ Ich habe Client-Installation auf [dieser](https://git-scm.com/downloads) Seite h
      
 3. Repository mit SSH klonen:
     Shell
-      $ git clone git@github.com:silvanwalz/lb2.git
+      $ git clone git@github.com:shajith16/lb2.git
 
       Cloning into 'lb2'...
      
@@ -199,7 +198,7 @@ Ich habe Client-Installation auf [dieser](https://git-scm.com/downloads) Seite h
 
 1.  Folgenden Befehl mit der Account-E-Mail von GitHub in Bash einfügen:
     Shell
-      $  ssh-keygen -t rsa -b 4096 -C "silvan.walz@hotmail.ch"
+      $  ssh-keygen -t rsa -b 4096 -C "shajith63@gmail.com"
     
 2. Neuer SSH-Key wird erstellt:
     Shell
