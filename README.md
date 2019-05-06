@@ -347,7 +347,7 @@ K5
 *Bereits bekannt*
 
 - Die manuelle Virtualisierung von Ubuntu habe ich schon öfters in anderen Modulen oder im ÜK gemacht.
-- Github haben wir bereits in einem anderen Modul gebraucht, doch ich habe mich nicht wirklich gut damit ausgekannt.
+- Github hatten wir in einem anderen Modul bereits, aber habe recht wenig damit beschäftigt.
 
 *Neu*
 
