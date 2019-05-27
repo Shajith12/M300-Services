@@ -1,9 +1,9 @@
-M300 - LB2 Dokumentation Shajith Sridaran
+M300 - LB3 Dokumentation Shajith Sridaran
 ===
-Die nachstehende Dokumentation zeigt alle Schritte auf, die ich während der LB2 gemacht habe.
+Die nachstehende Dokumentation zeigt alle Schritte auf, die ich während der LB3 gemacht habe.
 
 ## Inhaltsverzeichnis
-- [M300 - LB2 Dokumentation Shajith Sridaran](#m300---lb2-dokumentation-shajith-sridaran)
+- [M300 - LB3 Dokumentation Shajith Sridaran](#m300---lb3-dokumentation-shajith-sridaran)
   - [Inhaltsverzeichnis](#inhaltsverzeichnis)
 - [K1](#k1)
   - [VirtualBox](#virtualbox)
@@ -13,32 +13,36 @@ Die nachstehende Dokumentation zeigt alle Schritte auf, die ich während der LB2
   - [SSH-Key](#ssh-key)
 - [K2](#k2)
   - [GitHub Account](#github-account)
+  - [Persönlicher Wissensstand](#pers%C3%B6nlicher-wissensstand)
+  - [Wichtige Lernschritte](#wichtige-lernschritte)
 - [K3](#k3)
+  - [Aufbau der Dockerumgebung](#aufbau-der-dockerumgebung)
+  - [Wichtige Docker Befehle](#wichtige-docker-befehle)
   - [Testen](#testen)
-    - [Apache](#apache)
-    - [Users and Groups](#users-and-groups)
-    - [Ports](#ports)
+    - [Webserver](#webserver)
+    - [phpmyadmin](#phpmyadmin)
 - [K4](#k4)
-  - [Firewall](#firewall)
-  - [Reverse-Proxy](#reverse-proxy)
-  - [Benutzer und Rechtevergabe](#benutzer-und-rechtevergabe)
-  - [SSH](#ssh)
+  - [3 Sicherheitsaspekte](#3-sicherheitsaspekte)
+    - [Image Poinoning](#image-poinoning)
+    - [Memory Limit](#memory-limit)
+    - [Überwachung](#%C3%BCberwachung)
 - [K5](#k5)
   - [Vergleich Vorwissen - Wissenszuwachs](#vergleich-vorwissen---wissenszuwachs)
   - [Reflexion](#reflexion)
-_
+___
 
 K1
 ======
+Die Dokumentation zu K1 konnte ich vollumfänglich von Lb2 übernehmen, da es die gleichen Kriterien sind.
 
-> [⇧ *Nach oben*](#inhaltsverzeichnis)
+> [⇧ **Nach oben**](#inhaltsverzeichnis)
  
 ## VirtualBox
 
 1. Als erstes habe ich auf [dieser Webseite](https://www.virtualbox.org) VirtualBox heruntergeladen und danach GUI-basiert installiert.
 2. Danach habe ich den Ubuntu Desktop 16.04.05 auf [dieser Webseite](https://www.ubuntu.com/#download) heruntergeladen. 
 
-*Nachdem ich das ISO heruntergeladen habe, habe ich die VM erstellt:*
+**Nachdem ich das ISO heruntergeladen habe, habe ich die VM erstellt:**
 1. VirtualBox starten
 2. Mit einem klick auf `Neu` eine neue VM erstellen.
 3. Als nächstes muss man folgende Attribute angeben:
@@ -61,76 +65,76 @@ K1
 
 Nun ist die VM erstellt.
 
-*Danach habe ich in der Bash folgende Befehle ausgeführt.*
+**Danach habe ich in der Bash folgende Befehle ausgeführt.**
 
 1. Paketliste neu einlesen und Pakete aktualisieren:
-   Shell 
+   ```Shell 
    $  sudo apt-get update   #Paketlisten des Paketmanagement-Systems "APT" neu einlesen
    
    $  sudo apt-get update   #Installierte Pakete wenn möglich auf verbesserte Versionen aktualisieren
 
    $  sudo reboot           #System-Neustart durchführen
-   
+   ```
 2. Software Controlcenter "Synaptic" installieren:
-   Shell 
+   ```Shell 
    $  sudo apt-get install synaptic
-   
+   ```
 3. Nach erfolgreicher Installation in der Suche nach "Synaptic Package Manager" suchen und diesen starten
 4. Innerhalb des Managers nach "apache" (Webserver-Programm) suchen und dieses (inkl. aller Abhängigkeiten) installieren
 5. System-Neustart durchführen:
-   Shell 
+   ```Shell 
    $  sudo reboot
-   
+   ```
 6. Danach habe geprüft, ob der Standard-Content des Webservers unter "http://127.0.0.01:80" erreichbar ist
 
 
 ## Vagrant
-> [⇧ *Nach oben*](#inhaltsverzeichnis)
+> [⇧ **Nach oben**](#inhaltsverzeichnis)
 
 Zuerst habe ich Vagrant auf [dieser Webseite](https://www.vagrantup.com/ "vagrantup.com")   heruntergeladen und GUI-Basiert installiert.
 
-*Danach habe ich mit Vagrant eine VM erstellt.*
+**Danach habe ich mit Vagrant eine VM erstellt.**
 1. Terminal öffnen
 2. Einen neuen Ordner für die VM anlegen:
-    Shell
-      $ cd C:\Users\silva
+    ```Shell
+      $ cd C:\Users\shajith
       $ mkdir MeineVagrantVM
       $ cd MeineVagrantVM
-     
+    ``` 
 3. Vagrantfile erzeugen, VM erstellen und starten:
-    Shell
+    ```Shell
       $ vagrant box add http://10.1.66.11/vagrant/ubuntu/xenial64.box --name ubuntu/xenial64  #Vagrant-Box vom Netzwerkshare hinzufügen
       $ vagrant init ubuntu/xenial64        #Vagrantfile erzeugen
       $ vagrant up --provider virtualbox    #Virtuelle Maschine erstellen & starten
-     
+    ``` 
 4. Die VM ist nun bereit und kann mit SSH-Zugriff bedient werden:
-    Shell
-      $ cd C:\Users\silva\MeineVagrantVM      #Zum Verzeichnis der VM wechseln
+    ```Shell
+      $ cd C:\Users\shajith\MeineVagrantVM      #Zum Verzeichnis der VM wechseln
       $ vagrant ssh                       #SSH-Verbindung zur VM aufbauen
-     
+    ``` 
 
-*Nachfolgend habe ich eine VM mit Apache Webserver von einem bereits abgeänderten File erstellt:*
+**Nachfolgend habe ich eine VM mit Apache Webserver von einem bereits abgeänderten File erstellt:**
 
 1. Terminal öffnen
 2. In das M300-Verzeichnis wechseln:
-    Shell
-      $ cd C:\Users\silva\M300\vagrant\web
-     
+    ```Shell
+      $ cd C:\Users\shajith\M300\vagrant\web
+    ``` 
 3. VM erstellen und starten:
-    Shell
+    ```Shell
       $ vagrant up
-     
+    ``` 
 4. Danach habe ich im Webbrowser geprüft, ob der Standard-Content des Webservers unter "http://127.0.0.01:8080" (localhost) erreichbar ist
 5. Später habe ich im Ordner `\web` die Hauptseite `index.html` editiert und das Resultat überprüft.
 6. Abschliessend habe ich die VM wieder gelöscht:
-    Shell
+    ```Shell
       $ vagrant destroy -f
-    
+    ```
 
 ## Visual Studio Code
-> [⇧ *Nach oben*](#inhaltsverzeichnis)
+> [⇧ **Nach oben**](#inhaltsverzeichnis)
 
-*In diesem Abschnit habe ich Visual Studio Code heruntergeladen, installiert und angewendet.*
+**In diesem Abschnit habe ich Visual Studio Code heruntergeladen, installiert und angewendet.**
 
 1. Ich habe Visual Studio Code auf [dieser](https://code.visualstudio.com/"visualstudio.com") Seite heruntergelden und GUI-basiert installiert.
 2. Danach habe ich dem Editor drei wichtige Extensions hinzugefügt:
@@ -145,220 +149,239 @@ Dazu habe ich folgende Anweisungen befolgt:
   2. Die Tastenkombination `CTRL` + `SHIFT` + `X` drücken und in der Suchleiste die erwähnten Extensions suchen
   3. Auf `Install` klicken und anschliessend auf `Reload`, um die Extension in den Arbeitsbereich zu laden.
 
-*Um die Dokumentation lokal mit Visual Studio Code zu bearbeiten, arbeite ich folgendermassen:*
+**Um die Dokumentation lokal mit Visual Studio Code zu bearbeiten, arbeite ich folgendermassen:**
 
   1. Änderungen am Readme-File von meinem Repositorys vornehmen
   2. Datei speichern und in der linken Leiste das Symbol mit einer "1" aufrufen
-  3. Unter dem Abschnitt *Changes* die betroffenen Files bezüglich ihres Changes "stagen"
+  3. Unter dem Abschnitt **Changes** die betroffenen Files bezüglich ihres Changes "stagen"
   4. Nachricht hinterlegen und Haken setzen
-  5. Bei den 3 Punkten (...) auf *Push* klicken
+  5. Bei den 3 Punkten (...) auf **Push** klicken
   6. Warten, bis Dateien vollständig gepusht wurden
 
 ## Git-Client
-> [⇧ *Nach oben*](#inhaltsverzeichnis)
+> [⇧ **Nach oben**](#inhaltsverzeichnis)
 
 Damit ich die Arbeiten lokal auf dem eigenen PC machen konnte, musste ich der sogenannte "Git Client", auf Windows "Git/Bash" installieren. 
 
-*Client installieren*
+**Client installieren**
 Ich habe Client-Installation auf [dieser](https://git-scm.com/downloads) Seite heruntergeladen und GUI-basiert installiert.
 
-*Danach habe ich den Client konfiguriert:*
+**Danach habe ich den Client konfiguriert:**
 1. Terminal öffnen
 2. Git konfigurieren mit Informationen des GitHub-Accounts:
-    Shell
+    ```Shell
       $ git config --global user.name "<username>"
       $ git config --global user.email "<e-mail>"
-     
+    ``` 
 
-*Damit ich das readme-File lokal bearbeiten kann, habe ich das Repository heruntergeladen und aktualisiert.*
+**Damit ich das readme-File lokal bearbeiten kann, habe ich das Repository heruntergeladen und aktualisiert.**
 
 1. Terminal öffnen
 2. Ordner für Repository erstellen:
-    Shell
-      $ cd C:\Users\silva\Desktop
+    ```Shell
+      $ cd C:\Users\shajith\Desktop
       $ mkdir githublb2
-     
+    ``` 
 3. Repository mit SSH klonen:
-    Shell
-      $ git clone git@github.com:shajith16/lb2.git
+    ```Shell
+      $ git clone git@github.com:shajithsridaran/lb2.git
 
       Cloning into 'lb2'...
-     
+    ``` 
 4. Repository aktualisieren und Status anzeigen:
-    Shell
+    ```Shell
       $ git pull
 
       Already up to date.
-    
+    ```
 
 ## SSH-Key 
-> [⇧ *Nach oben*](#inhaltsverzeichnis)
+> [⇧ **Nach oben**](#inhaltsverzeichnis)
 
-*Zuerst musste ich Lokal einen SSH-Key erstellen:*
+**Zuerst musste ich Lokal einen SSH-Key erstellen:**
 
 1.  Folgenden Befehl mit der Account-E-Mail von GitHub in Bash einfügen:
-    Shell
+    ```Shell
       $  ssh-keygen -t rsa -b 4096 -C "shajith63@gmail.com"
-    
+    ```
 2. Neuer SSH-Key wird erstellt:
-    Shell
+    ```Shell
       Generating public/private rsa key pair.
-    
+    ```
 3. Bei der Abfrage, unter welchem Namen der Schlüssel gespeichert werden soll, die Enter-Taste drücken (für Standard):
-    Shell
+    ```Shell
       Enter a file in which to save the key (~/.ssh/id_rsa): [Press enter]
-    
+    ```
 4. Nun habe ich ein Passwort für den Key festgelegt:
-    Shell
+    ```Shell
       Enter passphrase (empty for no passphrase): [Passwort]
       Enter same passphrase again: [Passwort wiederholen]
-    
-*Danach kann ich den SSH-Key dem Client hinzufügen:*
-1. Auf www.github.com im Benutzerkonto *Settings* aufrufen
-2.  Unter den Menübereichen auf der linken Seite zum Abschnitt *SSH und GPG keys* wechseln
-3.  Auf *New SSH key* klicken
-4.  Im Formular unter *Title* die Bezeichnung MB SSH-Key vergeben
-5.  Den Key von der Datei *C:\Users\shajith\.ssh\id_rsa.pub* einfügen und auf *Add SSH key* klicken
+    ```
+**Danach kann ich den SSH-Key dem Client hinzufügen:**
+1. Auf www.github.com im Benutzerkonto **Settings** aufrufen
+2.  Unter den Menübereichen auf der linken Seite zum Abschnitt **SSH und GPG keys** wechseln
+3.  Auf **New SSH key** klicken
+4.  Im Formular unter **Title** die Bezeichnung MB SSH-Key vergeben
+5.  Den Key von der Datei **C:\Users\shajith\.ssh\id_rsa.pub** einfügen und auf **Add SSH key** klicken
 
-*SSH Zugriff auf VM*
+**SSH Zugriff auf VM**
 
 Um Zugriff via SSH auf die VM aufzubauen, muss man bloss einen kurzen Befehl eingeben.
-shell
+```shell
 vagrant ssh
+```
 
-
-_
+___
 K2
 ======
-## GitHub Account
-> [⇧ *Nach oben*](#inhaltsverzeichnis)
+Auch die Dokumentation von K2 konnte hauptsächlich von LB2 übernommen werden. einzig der Wissenstand war ein anderer.
 
-*Ich habe folgendermassen einen Github Account erstellt:*
+## GitHub Account
+> [⇧ **Nach oben**](#inhaltsverzeichnis)
+
+**Ich habe folgendermassen einen Github Account erstellt:**
 1. Auf [GitHub.com](https://github.com) gehen
-2. Auf *Sign up* klicken
+2. Auf **Sign up** klicken
 3. Username, E-mail und Passwort eingeben sowie Aufgabe zum verifizieren lösen
-4. Auf *Create an Account* klicken
+4. Auf **Create an Account** klicken
+
+## Persönlicher Wissensstand
+
+Ich habe noch keinerlei Erfahrung mit Docker und Container. Ich habe schon von Docker gehört, habe aber noch nie damit gearbeitet und bin auch im Geschäft noch nie darauf gestossen. 
+
+## Wichtige Lernschritte
+
+Die wichtigsten Lernschritte für mich waren zuerst zu wissen, wie Container funktionieren und das kennenlernen der Befehle. 
 
 K3
 ======
 
-> [⇧ *Nach oben*](#inhaltsverzeichnis)
- 
+## Aufbau der Dockerumgebung
+
+**Zuerst habe ich Docker heruntergeladen:**
+1. Auf [docs.docker.com](https://docs.docker.com/docker-for-windows/install/) gehen
+2.  Auf **Download from Docker hub** klicken
+3. Die lokale Installation erfolgt dann GUI-basiert.
+
+Ich habe in meinem erstellten Ordner ein Dockerfile erstellt und folgendes eingetragen: 
+```Shell
+FROM php:7.1-apache
+
+RUN docker-php-ext-install mysqli
+```
+
+Danach habe ich ein Compose File erstellt:
+```Shell
+version: '2.2'
+
+services:
+
+# Hier werden Webserver und php Config definiert
+  php:
+    build: php
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: on-failure
+# Hier wird angegeben, wo das Indexfile für den Webserver ist. Angabe der Volumes wird das Index-File fortlaufend synchronisiert.
+    volumes:
+      - ./php/www:/var/www/html
+    cpus: 1
+    mem_limit: 1024m
+
+# Hier wird der grafische Zugang zum MySQL Server konfiguriert.
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+        - db:db
+# Hier wird angegeben, dass phpmyadmin über Port 8080 lauft, weil nicht zwei Services auf den gleichen Port laufen können.
+    ports:
+        - 8080:80
+    restart: on-failure
+# Hier wird das Passwort für den Root-User auf phpmyadmin gesetzt.
+    environment:
+        MYSQL_ROOT_PASSWORD: test123
+    cpus: 1
+    mem_limit: 1024m
+
+# Hier wird die MySQL Datenbank erstellt.
+  db:
+    image: mysql:5.7
+    ports:
+     - "3306:3306"
+    volumes:
+     - /var/lib/mysql
+    restart: on-failure
+# Hier wird das Passwort für den Root-Zugang definiert.
+    environment:
+     - MYSQL_ROOT_PASSWORD=test123
+     - MYSQL_DATABASE=database
+    cpus: 1
+    mem_limit: 1024m
+
+```
+
+## Wichtige Docker Befehle
+```Shell
+docker build -t name . # Image mithilfe des Dockerfiles im Verzeichnis erstellen
+docker run -p 4000:80 name           # "name"-Image starten mit Port 4000 als 80
+docker run -d -p 4000:80 name                 # das Gleiche bloss im Hintergrund
+docker container ls                             # List aller Laufenden Container
+docker container ls -a                                   # Liste aller Container
+docker container stop <hash>                    # Gracefully stop des Containers
+docker container kill <hash>                     # Force shutdown des Containers
+docker container rm <hash>                             # einen Container löschen
+docker container rm $(docker container ls -a -q)        # alle Container löschen
+docker image ls -a                      # Liste alles Images auf dieser Maschine
+docker image rm <image id>                                   # ein Image löschen
+docker image rm $(docker image ls -a -q)                   # Alle Images löschen
+```
+
 ## Testen
+### Webserver
+Um zu testen, ob der Webserver und seine Volumes funktionieren, habe ich im Browser "localhost" eingegeben und zuerst mal geschaut, ob meine Seite angezeigt wird. Um die Volumes zu testen, habe ich das Index-File angepasst und geschaut, ob sich die Seite geändert hat. 
 
-### Apache
-- Ich habe den Apache getestet, indem ich auf meinem Client die IP-Adresse der VM eingegeben habe. 
-- Zudem habe ich das index.html geändert und geschaut ob es die Änderungen übernommen hat.
-- Wenn man den folgenden Befehl eingibt, wird das index.html in der Shell angezeigt
-    Shell
-    curl -f [ip adress]
-    
+**Der Test war erfolgreich!**
 
-### Users and Groups
-- Mit diesem Befehl habe ich alle Benutzer in der VM angezeigt und habe dann gesehen, das meine beiden User erstellt worden sind.
-    Shell
-    cut -d: -f1 /etc/passwd
-    
-- Mit diesem Befehl zeige ich die Gruppen in der VM an und sehe dann, ob die neue Group erstellt wurde.
-    Shell
-    cut -d: -f1 /etc/group
-    
--  Die beiden Befehle oben kann man in einen zusammenfassen, indem man den User mit der dazugehörigen Group anzeigt:
-    Shell
-    cut -d: -f1 /etc/passwd | xargs groups
-    
+### phpmyadmin
+Um zu testen, ob phpmyadmin konfiguriert wurde, habe ich "localhost:8080" im Browser eingegeben und versucht mich mit meinem gesetzen Passwort einzuloggen.
 
-- Um zu testen, ob das Passwort geändert wurde, habe ich mich mit einem zuvor erstellten User eingeloggt.
-    Shell
-    su user01
-    password: ****
-    
-
-### Ports
-- Um zu testen, ob es die Portkonfiguration übernommen hat,    habe ich folgenden Befehl eingegeben und gesehen, dass die im File angegebenen Ports offen sind.
-    Shell
-    netstat -an |grep LISTEN 
-    
-- In diesem Fall habe ich Port 80 für die Webseite und Port 22 für die SSH-Verbindung geöffnet. Dies kann man auch testen, indem man die Webseite aufruft und eine Verbindung via SSH aufbaut. 
+**Der Test war erfolgreich!**
 
 K4
 ======
+## 3 Sicherheitsaspekte
+Ich habe folgende drei Sicherheitsaspekte beachtet.
+### Image Poinoning
+Als erster Aspekt, habe ich nur Images von der offiziellen Seite https://hub.docker.com/ genommen.
 
-> [⇧ *Nach oben*](#inhaltsverzeichnis)
- 
-## Firewall
+### Memory Limit
+Ich habe  im Compose File ein Memory Limit gesetzt, damit der Container nicht zu viel Memory braucht.
+```Shell
+mem_limit: 1024m
+```
 
-  *Ich habe beim aufsetzen automatisch Firewall Regeln erstellt, indem ich die nötigen Zeilen ins Vagrantfile eingefügt habe:*
+### Überwachung
+Für die grundsätzliche Überwachung der drei Container werden in der Shell die Aktivitäten angezeigt. 
 
-1. Vagrantfile öffnen
-2. Folgende Zeilen einfügen:
-    Shell
-      sudo apt-get install ufw
-      sudo ufw allow 80/tcp
-      sudo ufw allow 22/tcp
-      sudo ufw allow out 22/tcp 
-      sudo ufw enable
-     
+Zur genaueren Überwachung habe ich den PRTG Network Monitor ausgewählt. Damit lässt sich der Container überwachen. 
 
-## Reverse-Proxy
-*Ich habe beim aufsetzen automatisch einen Reverse-Proxy installiert, indem ich die nötigen Zeilen ins Vagrantfile eingefügt habe:*
-1. Vagrantfile öffnen
-2. Folgende Zeilen einfügen:
-    Shell
-    sudo apt-get -y install libapache2-mod-proxy-html
-    sudo apt-get -y install libxml2-dev
+**Ich habe folgendermassen PRTG heruntergeladen:**
+1. Auf [paessler.com](https://www.de.paessler.com/prtg) gehen
+2. Auf **Kostenlose Download** klicken
+3. Die lokale Installation erfolgt dann GUI-basiert.
 
-    sudo a2enmod proxy
-    sudo a2enmod proxy_html
-    sudo a2enmod proxy_http
-     
+Nachdem die Software heruntergeladen wurde, kann man darauf zugreifen, indem man im Browser **127.0.0.1** eintippt. Oder über die Destop-App.
 
-## Benutzer und Rechtevergabe
-
-*Ich habe beim aufsetzen automatisch User mit Passwort erstellt, indem ich die nötigen Zeilen ins Vagrantfile eingefügt habe:*
-
-1. Vagrantfile öffnen
-2. Folgende Zeilen einfügen:
-    Shell
-      sudo groupadd testadmin
-      sudo useradd user1 -g testadmin -m -s /bin/bash 
-      sudo useradd user2 -g testadmin -m -s /bin/bash 
-      sudo chpasswd <<<user1:abc123	
-      sudo chpasswd <<<user2:abc123
-    
-## SSH
-
-*Ich habe beim aufsetzen automatisch ein SSH Zugang erstellt, indem ich die nötigen Zeilen ins Vagrantfile eingefügt habe:*
-
-1. Vagrantfile öffnen
-2. Folgende Zeilen einfügen:
-    Shell
-      sudo apt-get -y install openssh-server
-    
+Ich habe dazu noch zwei Trigger für Benachrichtigungen erstellt:
+* Wenn sich der Sensor ändert, führe E-Mail an alle Mitglieder der Gruppe PRTG Benutzergruppe schicken aus.
+* Wenn der Sensor für mindestens 60 Sekunden im Zustand Fehler ist, führe E-Mail und Push-Benachrichtigung an Administrator aus.
 
 K5
 ======
 
-> [⇧ *Nach oben*](#inhaltsverzeichnis)
- 
-
 ## Vergleich Vorwissen - Wissenszuwachs
-
-*Bereits bekannt*
-
-- Die manuelle Virtualisierung von Ubuntu habe ich schon öfters in anderen Modulen oder im ÜK gemacht.
-- Github hatten wir in einem anderen Modul bereits, aber habe recht wenig damit beschäftigt.
-
-*Neu*
-
- - Vor diesem Modul habe ich immer mit VMWare gearbeiet, also war VirtualBox neu für mich. Ich bin aber sehr schnell und gut zurecht gekommen, da es keine grossen Unterschiede zwischen den beiden gibt.
- - Ich kannte Vagrant vor diesem Modul nicht, daher war alles davon neu für mich.
- - Auch mit Markdown bin ich zuvor nicht in Berührung gekommen.
-
-*Fazit*
-
-Ich konnte sehr von LB2 provitieren, da vieles neu für mich war. Vor allem Vagrant und Markdown konnte ich viel neues lernen, da ich zuvor noch nie etwas damit zu tun hatte. Auch verstehe ich nun Github einiges besser als zuvor.
+Der Wissenszuwachs war enorm, da ich zuvor nichts über Docker und seine Befehle gewusst habe. Daher war alles zuvor dokumentierte neu für mich.
 
 ## Reflexion
-
-Ich habe bei der LB2 mehr Zeit in die Dokumentation gesteckt, wie in die eigentliche Arbeit. Da wir die Funktionen, die in LB2 automatisert werden müssen, schon beim Teil 10 manuell gemacht haben, konnte man vieles wiederholen. Einzig die Anpassungen im Vagrantfile sind neu dazugekommen. Wobei man sagen muss, dass die meissten Befehle, die darin eingebaut werden, ebenfalls schon bei Teil 10 vorgekommen sind. Die Dokumentation mit Markdown war, wie schon erwähnt neu für mich und hat daher die meisste Zeit in anspruch genommen.
+Die LB3 war zu Beginn sehr anspruchsvoll, da ich nicht genau wusste was zu tun ist. Mit der Zeit habe ich aber immer mehr hereingefunden. Zuerst musste ich die Befehle kennenlernen und konnte dann mit den Files beginnen. Die Dokumentation auf GitHub hat mir dabei sehr geholfen. Auch dieses Mal habe ich viel Zeit in die Dokumentation gebraucht. 
